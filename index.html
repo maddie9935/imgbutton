@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help Center – Fernbrook Supply Co.</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #52606d;
+      --line: #d9e2ec;
+      --soft: #f5f7fa;
+      --brand: #1e5aa8;
+      --brand-dark: #163f75;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      margin: 0;
+      line-height: 1.55;
+    }
+    a { color: var(--brand); }
+    a:hover { color: var(--brand-dark); }
+    a:focus-visible, input:focus-visible, button:focus-visible {
+      outline: 3px solid #1d4ed8;
+      outline-offset: 3px;
+    }
+    .wrap {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: #ffffff;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--brand);
+      border-radius: 6px;
+      z-index: 10;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* Header */
+    .site-header {
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--muted); font-weight: 400; }
+    .site-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .site-nav a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .site-nav a:hover { text-decoration: underline; }
+    .site-nav a[aria-current="page"] {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* Search hero */
+    .hero {
+      background: var(--soft);
+      border-bottom: 1px solid var(--line);
+      padding: 3rem 0 2.5rem;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      margin: 0 0 0.25rem;
+    }
+    .hero p { margin: 0; color: var(--muted); }
+    .hero label {
+      display: block;
+      font-weight: 600;
+      margin: 1.5rem 0 0.35rem;
+    }
+    .search-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 40rem;
+    }
+    input[type="search"] {
+      flex: 1 1 16rem;
+      font: inherit;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid #9aa5b1;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+    input[type="image"] {
+      width: 120px;
+      height: auto;
+    }
+    .suggestions {
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* Results */
+    #results:empty { display: none; }
+    #results {
+      margin-top: 1.5rem;
+      max-width: 40rem;
+    }
+    #results h2 { font-size: 1.15rem; margin: 0 0 0.5rem; }
+    #results ul { margin: 0; padding-left: 1.2rem; }
+    #results li { margin-bottom: 0.4rem; }
+
+    /* Main sections */
+    main section { padding: 2.5rem 0 0; }
+    main h2 { font-size: 1.4rem; margin: 0 0 1rem; }
+    .topics {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+      gap: 1rem;
+    }
+    .topics li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+    }
+    .topics h3 { font-size: 1.05rem; margin: 0 0 0.3rem; }
+    .topics p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    .articles {
+      margin: 0;
+      padding-left: 1.2rem;
+      columns: 2 18rem;
+      column-gap: 2.5rem;
+    }
+    .articles li { margin-bottom: 0.6rem; break-inside: avoid; }
+
+    .contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1.5rem;
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .contact h3 { font-size: 1.05rem; margin: 0 0 0.3rem; }
+    .contact p { margin: 0; }
+    .contact .hours { color: var(--muted); font-size: 0.95rem; }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .site-footer .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .site-footer ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .site-footer p { margin: 0; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="#">Fernbrook Supply Co. <span>Help Center</span></a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Track an order</a></li>
+          <li><a href="#" aria-current="page">Help</a></li>
+          <li><a href="#">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div class="wrap">
+        <h1>How can we help?</h1>
+        <p>Search our articles for answers about orders, shipping, and returns.</p>
+
+        <form id="search" role="search" action="#">
+          <label for="query">Search articles</label>
+          <div class="search-row">
+            <input id="query" name="q" type="search">
+
+            <!-- ACCESSIBILITY ISSUE (intentional for demo): image button has no alt attribute -->
+            <input src="v5.png" type="image">
+          </div>
+        </form>
+
+        <p class="suggestions">Popular searches: <a href="#">return label</a>, <a href="#">change address</a>, <a href="#">gift cards</a></p>
+
+        <div id="results" role="status"></div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <section aria-labelledby="topics-heading">
+        <h2 id="topics-heading">Browse by topic</h2>
+        <ul class="topics">
+          <li>
+            <h3><a href="#">Orders</a></h3>
+            <p>Change or cancel an order, check order status, and payment questions.</p>
+          </li>
+          <li>
+            <h3><a href="#">Shipping and delivery</a></h3>
+            <p>Delivery times, shipping costs, and tracking a package.</p>
+          </li>
+          <li>
+            <h3><a href="#">Returns and refunds</a></h3>
+            <p>Start a return, print a label, and see when your refund will arrive.</p>
+          </li>
+          <li>
+            <h3><a href="#">Your account</a></h3>
+            <p>Reset your password, update your details, and manage email preferences.</p>
+          </li>
+          <li>
+            <h3><a href="#">Products and sizing</a></h3>
+            <p>Size guides, care instructions, and product warranties.</p>
+          </li>
+          <li>
+            <h3><a href="#">Gift cards and promotions</a></h3>
+            <p>Check a gift card balance and use promo codes at checkout.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="articles-heading">
+        <h2 id="articles-heading">Popular articles</h2>
+        <ul class="articles">
+          <li><a href="#">How do I start a return?</a></li>
+          <li><a href="#">When will I get my refund?</a></li>
+          <li><a href="#">How can I track my package?</a></li>
+          <li><a href="#">Can I change my shipping address after ordering?</a></li>
+          <li><a href="#">Do you ship internationally?</a></li>
+          <li><a href="#">What payment methods do you accept?</a></li>
+          <li><a href="#">My package says delivered but I don't have it</a></li>
+          <li><a href="#">How do I reset my password?</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Still need help?</h2>
+        <div class="contact">
+          <div>
+            <h3>Chat with us</h3>
+            <p><a href="#">Start a chat</a></p>
+            <p class="hours">Monday to Friday, 8 a.m. to 8 p.m. ET</p>
+          </div>
+          <div>
+            <h3>Call us</h3>
+            <p><a href="tel:+18005550142">1-800-555-0142</a></p>
+            <p class="hours">Monday to Saturday, 9 a.m. to 6 p.m. ET</p>
+          </div>
+          <div>
+            <h3>Email us</h3>
+            <p><a href="mailto:help@fernbrook.example">help@fernbrook.example</a></p>
+            <p class="hours">We reply within one business day</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Fernbrook Supply Co. This is a demo site.</p>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Keeps the page from reloading so the demo can be recorded in one take.
+    var articles = [
+      'How do I start a return?',
+      'When will I get my refund?',
+      'How can I track my package?',
+      'Can I change my shipping address after ordering?',
+      'Do you ship internationally?',
+      'What payment methods do you accept?',
+      'My package says delivered but I don\'t have it',
+      'How do I reset my password?',
+      'How do I check my gift card balance?',
+      'How do I use a promo code?'
+    ];
+
+    document.getElementById('search').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = document.getElementById('query').value.trim();
+      var results = document.getElementById('results');
+      results.innerHTML = '';
+
+      if (!q) {
+        results.textContent = 'Enter a search term to see results.';
+        return;
+      }
+
+      var words = q.toLowerCase().split(/\s+/);
+      var matches = articles.filter(function (title) {
+        var t = title.toLowerCase();
+        return words.some(function (w) { return t.indexOf(w) !== -1; });
+      });
+      if (matches.length === 0) matches = articles.slice(0, 3);
+
+      var h = document.createElement('h2');
+      h.textContent = matches.length + ' results for "' + q + '"';
+      var ul = document.createElement('ul');
+      matches.forEach(function (title) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#';
+        a.textContent = title;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      results.appendChild(h);
+      results.appendChild(ul);
+    });
+  </script>
+</body>
+</html>
